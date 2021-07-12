@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.1)
 
+if (NOT CMAKE_BUILD_TYPE OR CMAKE_BUILD_TYPE STREQUAL "")
+    set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "" FORCE)
+endif()
+
+message("Building with TYPE ${CMAKE_BUILD_TYPE}")
+
 project(cmake-template)
 
 set(SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
@@ -10,6 +16,9 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -ggdb3 -Wall -Os")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall -Os")
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+include_directories(src)
 enable_testing()
 add_subdirectory(src)
 add_subdirectory(test)
